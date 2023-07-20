@@ -84,21 +84,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //同一ユーザー名が存在すれば true
         return true;
     }
-
-    //他のサイドを参考して書いたUserRepositoryクラスを作成しました
-//   private final UserRepository repo;
-//
-//    public UserDetailsServiceImpl(UserRepository repo) {
-//        this.repo = repo;
-//    }
-//
-//    //ユーザー名で検索して、UserDetailsを返す
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
-//        Optional<LoginUser> userOp = repo.findByEmail(email);
-//        return userOp.map(user -> new UserDetailsImpl(user))
-//                .orElseThrow(()-> new UsernameNotFoundException("not found"));
-//    }
 }
 
 

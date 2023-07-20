@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--ログイン画面-->
+<!--<html> タグには、xmlns で、XHTML が使用する名前空間を指定します。-->
+<!--XHTML（eXtensible HyperText Markup Language）-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<!--    <link th:href="@{/css/style.css}" rel="stylesheet"/>-->
+    <title>ログイン</title>
+</head>
+<body>
+    <h2>ログイン画面</h2>
+
+    <!--ユーザーが認証に失敗すると、ページは /login?error にリダイレクトされ、ページに適切なエラーメッセージが表示されます。-->
+    <div th:if="${param.error}">
+        ユーザー名とパスワードが無効です。
+<!--        <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">-->
+<!--            <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"></span>-->
+<!--        </div>-->
+    </div>
+
+    <!--ログアウトに成功すると、アプリケーションが /login?logout に送信され、ページに適切な成功メッセージが表示されます。-->
+    <div th:if="${param.logout}">
+        ログアウトされました。
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        ユーザー名: <input type="text" name="username"><br>
+        パスワード: <input type="password" name="password"><br>
+        <button type="submit">ログイン</button>
+
+<!--下記省略可、th:action="@{/login}"の記載をすることで、自動的に CSRFトークンが設定されるようになっています。-->
+<!-- CSRFトークンが利用されると、攻撃者がトークンを知らない限り、偽のリクエストを送信することはできません。ウェブアプリケーションは、送信されたトークンを検証し、リクエストが正当かどうかを判断します。-->
+<!-- トークンが不一致の場合、リクエストは却下されます。-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+
+<!--    ログイン画面から、ユーザー登録画面（/signup）に移動できるようにしておきます。-->
+    <a href="/signup">ユーザー登録</a>
+</body>
+</html>
+
+<!--CSRF攻撃では、攻撃者が被害者のブラウザを利用して意図しない操作を実行します。
+攻撃者は、被害者がログイン済みのウェブサイトにアクセスしている状態で、
+特定の操作（例：パスワードの変更、メールの送信など）を実行させます。
+このような攻撃は、被害者のセッション情報（Cookieなど）を利用して認証を回避するため、
+ウェブアプリケーションの悪用が可能になります。-->

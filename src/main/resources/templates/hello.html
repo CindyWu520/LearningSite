@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <meta charset="UTF-8">
+        <title>LearningSite</title>
+    </head>
+    <body>
+        <h2>動画講習サイトへようこそ</h2>
+        <div th:text="'こんにちは ' + ${#authentication.name} + ' さん'"></div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="ログアウト" />
+        </form>
+    </body>
+</html>
